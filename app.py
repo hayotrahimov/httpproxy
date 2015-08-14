@@ -19,14 +19,11 @@ def do_rep(html):
         word = re.sub('[,\.\?!\(\)\*\[\]\{\}\'\";:/\+\-_@#\$%\^&\s<>]', '', word)
         if len(word) == 6 and re.match(r"[\w]+", word, re.UNICODE):
             words.add(word)
-            print word
     for word in words:
         for found in soup.findAll(text=re.compile('[,\.\?!()\*\[\]\{\}\'";:/\+-_@#\$%\^&\s<>]'+word+'[,\.\?!()\*\[\]\{\}\'";:/\+-_@#\$%\^&\s<>]')):
             st = found.string
             st = st.replace(word, word + u"\u2122")
             found.replace_with(st)
-            print found
-            print st
     return str(soup)
 
 
@@ -60,12 +57,10 @@ if __name__ == '__main__':
     from wsgiref.simple_server import make_server
 
     try:
-        print 'Visit http://localhost:8080/'
         BaseHandler.http_version = '1.1'
         import webbrowser
 
-        webbrowser.open('http://localhost:8888')
-        make_server('', 8888, application).serve_forever()
+        webbrowser.open('http://localhost:8080/company/yandex/blog/258673/')
+        make_server('', 8080, application).serve_forever()
     except KeyboardInterrupt:
         pass
-    print('Thanks!')
